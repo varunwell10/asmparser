@@ -1,13 +1,16 @@
 #Parser file which defines grammer and parsing
 
 
-from pyparsing import Word, alphas
-greet = Word( alphas ) + Word ( alphas )  # <-- grammar defined here
-asmfileptr = open("../data/asm.txt",'r')
+from pyparsing import *
 
-asmfile = asmfileptr.read()
+file = open( "../data/asm.txt", "r" )
 
-#print(asmfile)
+fl = file.readlines()
 
-print (asmfile, "->", greet.parseString( asmfile ))
+curlen = 0
+for curlen in range(len(fl)):
+    fl[curlen] = fl[curlen].strip('\n')
 
+print(fl)
+
+file.close()

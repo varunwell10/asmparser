@@ -1,0 +1,244 @@
+	.file	"quicksort.c"
+	.section	.rodata
+.LC0:
+	.string	"\n\nUnsorted array is:  "
+.LC1:
+	.string	" %d "
+.LC2:
+	.string	"\n\nSorted array is:  "
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB0:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$64, %rsp
+	movq	%fs:40, %rax
+	movq	%rax, -8(%rbp)
+	xorl	%eax, %eax
+	movl	$7, -48(%rbp)
+	movl	$12, -44(%rbp)
+	movl	$1, -40(%rbp)
+	movl	$-2, -36(%rbp)
+	movl	$0, -32(%rbp)
+	movl	$15, -28(%rbp)
+	movl	$4, -24(%rbp)
+	movl	$11, -20(%rbp)
+	movl	$9, -16(%rbp)
+	movl	$.LC0, %edi
+	movl	$0, %eax
+	call	printf
+	movl	$0, -52(%rbp)
+	jmp	.L2
+.L3:
+	movl	-52(%rbp), %eax
+	cltq
+	movl	-48(%rbp,%rax,4), %eax
+	movl	%eax, %esi
+	movl	$.LC1, %edi
+	movl	$0, %eax
+	call	printf
+	addl	$1, -52(%rbp)
+.L2:
+	cmpl	$8, -52(%rbp)
+	jle	.L3
+	leaq	-48(%rbp), %rax
+	movl	$8, %edx
+	movl	$0, %esi
+	movq	%rax, %rdi
+	call	quickSort
+	movl	$.LC2, %edi
+	movl	$0, %eax
+	call	printf
+	movl	$0, -52(%rbp)
+	jmp	.L4
+.L5:
+	movl	-52(%rbp), %eax
+	cltq
+	movl	-48(%rbp,%rax,4), %eax
+	movl	%eax, %esi
+	movl	$.LC1, %edi
+	movl	$0, %eax
+	call	printf
+	addl	$1, -52(%rbp)
+.L4:
+	cmpl	$8, -52(%rbp)
+	jle	.L5
+	nop
+	movq	-8(%rbp), %rax
+	xorq	%fs:40, %rax
+	je	.L6
+	call	__stack_chk_fail
+.L6:
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	main, .-main
+	.globl	quickSort
+	.type	quickSort, @function
+quickSort:
+.LFB1:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movq	%rdi, -24(%rbp)
+	movl	%esi, -28(%rbp)
+	movl	%edx, -32(%rbp)
+	movl	-28(%rbp), %eax
+	cmpl	-32(%rbp), %eax
+	jge	.L9
+	movl	-32(%rbp), %edx
+	movl	-28(%rbp), %ecx
+	movq	-24(%rbp), %rax
+	movl	%ecx, %esi
+	movq	%rax, %rdi
+	call	partition
+	movl	%eax, -4(%rbp)
+	movl	-4(%rbp), %eax
+	leal	-1(%rax), %edx
+	movl	-28(%rbp), %ecx
+	movq	-24(%rbp), %rax
+	movl	%ecx, %esi
+	movq	%rax, %rdi
+	call	quickSort
+	movl	-4(%rbp), %eax
+	leal	1(%rax), %ecx
+	movl	-32(%rbp), %edx
+	movq	-24(%rbp), %rax
+	movl	%ecx, %esi
+	movq	%rax, %rdi
+	call	quickSort
+.L9:
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE1:
+	.size	quickSort, .-quickSort
+	.globl	partition
+	.type	partition, @function
+partition:
+.LFB2:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -24(%rbp)
+	movl	%esi, -28(%rbp)
+	movl	%edx, -32(%rbp)
+	movl	-28(%rbp), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	movq	-24(%rbp), %rax
+	addq	%rdx, %rax
+	movl	(%rax), %eax
+	movl	%eax, -8(%rbp)
+	movl	-28(%rbp), %eax
+	movl	%eax, -16(%rbp)
+	movl	-32(%rbp), %eax
+	addl	$1, %eax
+	movl	%eax, -12(%rbp)
+.L12:
+	addl	$1, -16(%rbp)
+	movl	-16(%rbp), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	movq	-24(%rbp), %rax
+	addq	%rdx, %rax
+	movl	(%rax), %eax
+	cmpl	-8(%rbp), %eax
+	jg	.L11
+	movl	-16(%rbp), %eax
+	cmpl	-32(%rbp), %eax
+	jle	.L12
+.L11:
+	subl	$1, -12(%rbp)
+	movl	-12(%rbp), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	movq	-24(%rbp), %rax
+	addq	%rdx, %rax
+	movl	(%rax), %eax
+	cmpl	-8(%rbp), %eax
+	jg	.L11
+	movl	-16(%rbp), %eax
+	cmpl	-12(%rbp), %eax
+	jge	.L17
+	movl	-16(%rbp), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	movq	-24(%rbp), %rax
+	addq	%rdx, %rax
+	movl	(%rax), %eax
+	movl	%eax, -4(%rbp)
+	movl	-16(%rbp), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	movq	-24(%rbp), %rax
+	addq	%rax, %rdx
+	movl	-12(%rbp), %eax
+	cltq
+	leaq	0(,%rax,4), %rcx
+	movq	-24(%rbp), %rax
+	addq	%rcx, %rax
+	movl	(%rax), %eax
+	movl	%eax, (%rdx)
+	movl	-12(%rbp), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	movq	-24(%rbp), %rax
+	addq	%rax, %rdx
+	movl	-4(%rbp), %eax
+	movl	%eax, (%rdx)
+	jmp	.L12
+.L17:
+	nop
+	movl	-28(%rbp), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	movq	-24(%rbp), %rax
+	addq	%rdx, %rax
+	movl	(%rax), %eax
+	movl	%eax, -4(%rbp)
+	movl	-28(%rbp), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	movq	-24(%rbp), %rax
+	addq	%rax, %rdx
+	movl	-12(%rbp), %eax
+	cltq
+	leaq	0(,%rax,4), %rcx
+	movq	-24(%rbp), %rax
+	addq	%rcx, %rax
+	movl	(%rax), %eax
+	movl	%eax, (%rdx)
+	movl	-12(%rbp), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	movq	-24(%rbp), %rax
+	addq	%rax, %rdx
+	movl	-4(%rbp), %eax
+	movl	%eax, (%rdx)
+	movl	-12(%rbp), %eax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2:
+	.size	partition, .-partition
+	.ident	"GCC: (Ubuntu 5.4.0-6ubuntu1~16.04.5) 5.4.0 20160609"
+	.section	.note.GNU-stack,"",@progbits
