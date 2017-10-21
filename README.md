@@ -12,6 +12,6 @@ Method:
 3. Project publishes set of ISAs used for the assembly file.
 
 License:
-Data, code and all other artifacts are free for use (until credit is given) without no liability what-so-ever. Use it at your own risk.
+Data, code and all other artifacts are free for use (as long as credits are given) without no liability what-so-ever. Use it at your own risk.
 
-P.S. : Any Contributions back to repo are appreciated.
+P.S. : Any Contributions back to the project are appreciated.
