@@ -3,14 +3,14 @@
 
 from pyparsing import *
 
-file = open( "../data/asm.txt", "r" )
+file = open( "../data/qsort.txt", "r" )
 
-fl = file.readlines()
+fl = file.read()
 
 curlen = 0
-for curlen in range(len(fl)):
-    fl[curlen] = fl[curlen].strip('\n')
+#for curlen in range(len(fl)):
+    #fl[curlen] = fl[curlen].strip('\n')
 
-print(fl)
+print("number of 'movl' instructions: " , fl.count("movl"))
 
 file.close()
